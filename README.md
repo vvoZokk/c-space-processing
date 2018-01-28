@@ -19,7 +19,7 @@ About configuration spaces:
 #### Содержание
 
 [Генерация конфигурационного пространства](doc/generator.md)  
-[Визуализация и проверка пути](doc/visualizator.md)  
+[Визуализация и проверка пути](doc/visualizer.md)  
 [Формат данных](doc/formats.md)
 
 
