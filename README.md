@@ -17,9 +17,9 @@ About configuration spaces:
 
 #### Содержание
 
-* [Генерация конфигурационного пространства](doc/generator.md)
-* [Визуализация и проверка пути](doc/visualizer.md)
-* [Форматы данных](doc/formats.md)
+* [Генерация конфигурационного пространства](docs/generator.md)
+* [Визуализация и проверка пути](docs/visualizer.md)
+* [Форматы данных](docs/formats.md)
 
 
 ### Общая информации

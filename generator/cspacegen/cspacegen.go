@@ -18,14 +18,14 @@ const (
 // Default vales of parameters.
 const (
 	DefaultSize = 10 // size
-	MaxFullness = 90 // maximum of fullness
+	MaxFullness = 9  // maximum of fullness
 )
 
 const (
 	insideOffset = 0.33
 )
 
-// Point3D stores three coordinates x, y, z.
+// Point3D stores three coordinates x, y, z as slice.
 type Point3D []float64
 
 // Obstacle contains origin point, three sizes and offsets for its boundary and center points.

@@ -1,4 +1,5 @@
 ### Визуализатор конфигурационных пространств
 
-* [Документация](../doc/visualizer.md)
-* [Формат данных](../doc/formats.md)
+* [Документация](../docs/visualizer.md)
+* [Формат данных](../docs/formats.md)
+* [Главная страница проекта](https://github.com/vvoZokk/c-space-processing)
