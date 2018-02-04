@@ -139,7 +139,7 @@ func (o *Obstacle) volume() float64 {
 // centerPointIndex calculates and returns index of center point by number.
 func (o *Obstacle) centerPointIndex(i int) int {
 	index := 7
-	for j := 8; j < 13; j++ {
+	for j := 8; j < 14; j++ {
 		if _, ok := o.centerPoint[j]; ok {
 			index++
 		}
@@ -218,22 +218,26 @@ func GenerateCSpace(x, y, z float64, f int, seed int64) (*CSpace, error) {
 	// c-space fullness
 	fullness := fmt.Sprintf("fullness value %d", f)
 	quantity := 0
-	rate := 1.0 - float64(f)/(MaxFullness/0.9)
+	rate := 1.0 - float64(f)/(float64(MaxFullness)/0.9)
+	minQuantity := f / (MaxFullness / 9)
+	if minQuantity == 0 {
+		minQuantity = 1
+	}
 	switch {
 	case f > 0 && f <= MaxFullness/3:
 		// minimum fullness
-		quantity = f/(MaxFullness/0.9) + r.Intn(2+f)
+		quantity = minQuantity + r.Intn(2+minQuantity)
 	case f > MaxFullness/3 && f <= 2*MaxFullness/3:
 		// medium fullness
-		quantity = 1 + f/(MaxFullness/0.9) + r.Intn(1+f)
+		quantity = 1 + minQuantity + r.Intn(1+minQuantity)
 	case f > 2*MaxFullness/3 && f <= MaxFullness:
 		// maximum fullness
-		quantity = 2 + f/(MaxFullness/0.9) + r.Intn(f)
+		quantity = 2 + minQuantity + r.Intn(minQuantity)
 	default:
 		fullness = "empty"
 		rate = 1
 	}
-	//fmt.Println("Debug: rate", rate)
+	//fmt.Println("Debug: rate", rate, "minQuantity", minQuantity, "quantity", quantity)
 	zeroPoint := *NewPoint(0, 0, 0)
 	edgePoint := *NewPoint(x, y, z)
 
@@ -358,7 +362,7 @@ func GenerateCSpace(x, y, z float64, f int, seed int64) (*CSpace, error) {
 			} // point cycle
 		} // offset cycle
 		// central points offsets
-		for i := 8; i < 13; i++ {
+		for i := 8; i < 14; i++ {
 			if r.Intn(5) < 3 { // probability value is 3/5
 				p := *zeroCenterOffset(i)
 				for index := 0; index < 3; index++ {
