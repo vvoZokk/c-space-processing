@@ -28,12 +28,12 @@ var testResult *CSpace
 
 func TestGenerateCSpace(t *testing.T) {
 	for _, test := range generatorTests {
-		testResult, err := GenerateCSpace(test.arg.x, test.arg.y, test.arg.z, test.arg.f, test.arg.seed)
-		if testResult == nil && err.Error() != test.res {
+		cSpace, err := GenerateCSpace(test.arg.x, test.arg.y, test.arg.z, test.arg.f, test.arg.seed)
+		if cSpace == nil && err.Error() != test.res {
 			t.Error("For arguments:", test.arg, "got", err.Error())
 		}
-		if testResult != nil {
-			if json, _ := testResult.Serialize(); json != test.res {
+		if cSpace != nil {
+			if json, _ := cSpace.Serialize(); json != test.res {
 				t.Error("Incorrect JSON for arguments:", test.arg)
 			}
 		}
