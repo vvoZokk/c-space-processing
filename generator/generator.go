@@ -2,7 +2,7 @@ package main
 
 import (
 	"bufio"
-	"c-space-processing/generator/cspacegen"
+	gen "c-space-processing/generator/cspacegen"
 	"flag"
 	"fmt"
 	"os"
@@ -12,9 +12,9 @@ import (
 func main() {
 	// set flags
 	outputFlag := flag.String("o", "", "set file name to write JSON")
-	dimensionFlag := flag.Float64("d", cspacegen.DefaultSize, "set c-space dimension")
+	dimensionFlag := flag.Float64("d", gen.DefaultSize, "set c-space dimension")
 	seedFlag := flag.Int64("s", 0, "set seed for random generator, zero to use system time")
-	fullnessFlag := flag.Int("f", cspacegen.MaxFullness/2, "set c-space fullness from 0 to "+fmt.Sprint(cspacegen.MaxFullness))
+	fullnessFlag := flag.Int("f", gen.MaxFullness/2, "set c-space fullness from 0 to "+fmt.Sprint(gen.MaxFullness))
 	flag.Parse()
 
 	// output
@@ -34,11 +34,11 @@ func main() {
 		size = 10
 		fmt.Println("> incorrect size, used default value (10.0)")
 	}
-	// fullnes
+	// fullness
 	fullness := *fullnessFlag
-	if fullness < 0 || fullness > cspacegen.MaxFullness {
-		fullness = cspacegen.MaxFullness / 2
-		fmt.Println("> incorrect fullness, used value " + fmt.Sprint(cspacegen.MaxFullness/2))
+	if fullness < 0 || fullness > gen.MaxFullness {
+		fullness = gen.MaxFullness / 2
+		fmt.Println("> incorrect fullness, used value " + fmt.Sprint(gen.MaxFullness/2))
 	}
 	// seed for random number generator
 	seed := *seedFlag
@@ -50,7 +50,7 @@ func main() {
 	if *outputFlag != "" {
 		fmt.Printf("> start c-space generation with size %.2f x %.2f x %.2f\n", size, size, size)
 	}
-	if cSpace, err := cspacegen.GenerateCSpace(size, size, size, fullness, seed); err != nil {
+	if cSpace, err := gen.GenerateCSpace(size, size, size, fullness, seed); err != nil {
 		fmt.Println(">", err)
 		os.Exit(1)
 	} else {
