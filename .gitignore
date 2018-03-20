@@ -25,5 +25,8 @@
 hs_err_pid*
 
 
+# IntelijIDEA files
 /visualizer/.idea
-/visualizer/target
+/visualizer/target/*
+*.iml
+
