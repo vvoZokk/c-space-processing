@@ -40,3 +40,5 @@ $ ./binary/macOS_amd64_generator -d 0.5 -f 8 -s 20183104 -o my_task.json
 ``` bash
 $ go build -o my_gen generator/generator.go
 ```
+
+Документация по исходному коду генератора может быть получена через `godoc`.
