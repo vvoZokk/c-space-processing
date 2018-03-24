@@ -75,10 +75,10 @@
 Порядок основных вершин и дополнительных вершин в массиве приведен на рисунке ниже и соответствует нумерации  снизу вверх против часовой стрелки, начиная с нуля - ближайшей  к началу координат вершины.
 
 Пояснение к нумерации вершин:  
-![Numbers of obstacle points](obstacle_points.png)
+![Numbers of obstacle points](formats_obstacle_points.png)
 
 Пример препятствия с восемнадцатью гранями:  
-![Numbers of obstacle points](obstacle.png)
+![Numbers of obstacle points](formats_obstacle.png)
 
 
 Пример JSON-описания объекта препятствия приведен ниже в следующем разделе.

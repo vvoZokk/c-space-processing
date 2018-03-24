@@ -28,7 +28,6 @@ import json.pojo.Point;
 import java.io.File;
 import java.util.*;
 /**
- * /**
  * Main class for obstacle visualizer
  * Represent scene with 3D scene and toolbar with controls
  *
@@ -185,7 +184,7 @@ public class ObstacleVisualizer extends Application {
 
         root.getChildren().add(world);
         root.setDepthTest(DepthTest.ENABLE);
-        subScene.setFill(Color.GREY);
+        subScene.setFill(Color.color(0.3, 0.4, 0.6));
         FieldParser fieldParser = new FieldParser();
         try {
             if (selectedFile != null) {
