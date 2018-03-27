@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.Box;
 import javafx.scene.shape.DrawMode;
-import json.pojo.FieldMap;
+import json.pojo.CSpace;
 import json.pojo.Point;
 
 import java.io.File;
@@ -16,27 +16,27 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Json Field parser
- * Parse json file and generate {@link FieldMap}, used for visualization
- * FieldParser generate {@link javafx.scene.shape.Sphere} for each point(start and finish)
- * {@link javafx.scene.shape.Box} for bounds and {@link Obstacle} for each obstacle
+ * Json CSpace parser
+ * Parse json file and generate {@link CSpace}, used for visualization
+ * CSpaceParser generate {@link javafx.scene.shape.Sphere} for each point(start and finish)
+ * {@link javafx.scene.shape.Box} for vertices and {@link Obstacle} for each obstacle
  * @author      Vladislav Khakin
  * @version     %I%, %G%
  * @see Node
  */
-public class FieldParser {
+public class CSpaceParser {
 
     private List<Node> obstacles;
     private List<Node> points;
-    private List<Node> bounds;
+    private List<Node> vertices;
 
     /**
      * Default constructor. Initialize internal variable collections
      */
-    public FieldParser(){
+    public CSpaceParser(){
         obstacles = new ArrayList<>();
         points = new ArrayList<>();
-        bounds = new ArrayList<>();
+        vertices = new ArrayList<>();
     }
 
     /**
@@ -56,15 +56,15 @@ public class FieldParser {
     }
 
     /**
-     * Return list of bounds (as box object)
+     * Return list of vertices (as box object)
      * @return List of {@link Box}
      */
-    public List<Node> getBounds(){
-       return bounds;
+    public List<Node> getVertices(){
+       return vertices;
     }
 
     /**
-     * Parse toParse json file to generate FieldMap.
+     * Parse toParse json file to generate CSpace.
      * Stores generated List of {@link Point}, List of {@link Box} and
      * List of {@link Obstacle} in internal variables
      * @param toParse reference to json file
@@ -76,7 +76,7 @@ public class FieldParser {
         Random r = new Random();
         try {
             ObjectMapper mapper = new ObjectMapper();
-            FieldMap p = mapper.readValue(toParse, FieldMap.class);
+            CSpace p = mapper.readValue(toParse, CSpace.class);
             // generate start point
             Point start = p.getStart();
             points.add(ObstacleVisualizer.createSphere(start,0.2f,Color.YELLOW));
@@ -92,12 +92,12 @@ public class FieldParser {
             //box.setDrawMode(DrawMode.LINE);
             box.setDrawMode(DrawMode.LINE);
             box.setDisable(true);
-            bounds.add(box);
+            vertices.add(box);
 
             // generate obstacles
             for (json.pojo.Obstacle o: p.getObstacles()){
                 Color obstacleColor = Color.color(r.nextFloat(), r.nextFloat(), r.nextFloat());
-                Obstacle obstShape = new Obstacle(o.getEdges(),o.getFacets(), new PhongMaterial(obstacleColor));
+                Obstacle obstShape = new Obstacle(o.getVertices(),o.getFacets(), new PhongMaterial(obstacleColor));
                 obstacles.add(obstShape);
             }
 

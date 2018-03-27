@@ -185,14 +185,14 @@ public class ObstacleVisualizer extends Application {
         root.getChildren().add(world);
         root.setDepthTest(DepthTest.ENABLE);
         subScene.setFill(Color.color(0.3, 0.4, 0.6));
-        FieldParser fieldParser = new FieldParser();
+        CSpaceParser cSpaceParser = new CSpaceParser();
         try {
             if (selectedFile != null) {
-                fieldParser.parse(selectedFile);
-                obstacles = fieldParser.getObstacles();
+                cSpaceParser.parse(selectedFile);
+                obstacles = cSpaceParser.getObstacles();
                 obstacles.forEach(o->{defaultColors.put(o,((Obstacle) o).getMeshView().getMaterial());});
-                points = fieldParser.getPoints();
-                bounds = fieldParser.getBounds();
+                points = cSpaceParser.getPoints();
+                bounds = cSpaceParser.getVertices();
             } else
                 System.exit(0);
         }

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Class for json Obstacle parsing.
- * Includes list of edges and list of facets
+ * Includes list of vertices and list of facets
  * Presents 3D obstacle with custom geometry
  *
  * @author      Vladislav Khakin
@@ -17,21 +17,17 @@ import java.util.List;
  */
 public class Obstacle {
 
-    private int id;
-    private List<Point> edges;
+    private List<Point> vertices;
     private List<Facet> facets;
 
     /**
      * Default constructor for obstacle creation from json
-     * @param id obstacle identifier number
-     * @param edges list of {@link Point}
+     * @param vertices list of {@link Point}
      * @param facets list of {@link Facet}
      */
-    public Obstacle(@JsonProperty(value = "Id", required = true) int id,
-                    @JsonProperty(value = "Edge", required = true) List<Point> edges,
+    public Obstacle(@JsonProperty(value = "Vertex", required = true) List<Point> vertices,
                     @JsonProperty(value = "Facet", required = true) List<Facet> facets){
-        this.id = id;
-        this.edges = edges;
+        this.vertices = vertices;
         this.facets = facets;
     }
 
@@ -40,8 +36,7 @@ public class Obstacle {
      */
     @Override
     public String toString(){
-        return "id: " + id + "\n" +
-                "edges" + edges + "\n" +
+        return "vertices" + vertices + "\n" +
                 "facets" + facets;
     }
 
@@ -49,8 +44,8 @@ public class Obstacle {
      * Return list of obstacle points
      * @return List of {@link Point}
      */
-    public List<Point> getEdges(){
-        return edges;
+    public List<Point> getVertices(){
+        return vertices;
     }
 
     /**

@@ -19,9 +19,9 @@ import java.util.List;
  * @see obstacleVisualizer.Obstacle
  */
 
-public class FieldMap {
+public class CSpace {
     private String description;
-    private List<Point> border;
+    private List<Point> vertex;
     private Point start;
     private Point finish;
     private List<Obstacle> obstacles;
@@ -29,19 +29,19 @@ public class FieldMap {
     /** Constructor for field map creation from json file
      *
      * @param text - value of "Description" tag in json file
-     * @param border - list of {@link json.pojo.Point} represents border
+     * @param vertex - list of {@link json.pojo.Point} represents vertex
      * @param start - start {@link json.pojo.Point} of the path
      * @param finish - end {@link json.pojo.Point} of the path
      * @param obstacles list of {@link Obstacle} on the field
      */
-    public FieldMap(@JsonProperty(value = "Description", required = true) String text,
-                    @JsonProperty(value = "Border", required = true) List<Point> border,
-                    @JsonProperty(value = "Start",required = true) Point start,
-                    @JsonProperty(value = "Finish",required = true) Point finish,
-                    @JsonProperty(value = "Obstacle", required = true) List<Obstacle> obstacles)
+    public CSpace(@JsonProperty(value = "Description", required = true) String text,
+                  @JsonProperty(value = "Vertex", required = true) List<Point> vertex,
+                  @JsonProperty(value = "Start",required = true) Point start,
+                  @JsonProperty(value = "Finish",required = true) Point finish,
+                  @JsonProperty(value = "Obstacle", required = true) List<Obstacle> obstacles)
     {
        this.description = text;
-       this.border = border;
+       this.vertex = vertex;
        this.start = start;
        this.finish = finish;
        this.obstacles = obstacles;
@@ -53,7 +53,7 @@ public class FieldMap {
     @Override
     public String toString() {
         return "{ description: " + description + "\n" +
-        "border: " + border + "\n" +
+        "vertex: " + vertex + "\n" +
         "start: " + start + "\n" +
         "finish: " + finish + "\n" +
         "obstacles" + obstacles + "\n";
@@ -87,7 +87,7 @@ public class FieldMap {
      * Returns borders as list of Points
      * @return List {@link json.pojo.Point}
      */
-    public List<Point> getBorder(){
-        return border;
+    public List<Point> getVertex(){
+        return vertex;
     }
 }
