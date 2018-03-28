@@ -16,15 +16,14 @@ type triangle struct {
 
 // obstacle struct to serialize.
 type obstacle struct {
-	Id    int
-	Edge  []point
-	Facet []triangle
+	Vertex []point
+	Facet  []triangle
 }
 
 // cspace struct to serialize.
-type field struct {
+type cspace struct {
 	Description string
-	Border      []point
+	Vertex      []point
 	Start       point
 	Finish      point
 	Obstacle    []obstacle
@@ -32,20 +31,20 @@ type field struct {
 
 // Serialize returns serialized JSON or error.
 func (f *CSpace) Serialize() (string, error) {
-	border := make([]point, 0, 8)
-	border = append(border, point{0, 0, 0})
-	border = append(border, point{f.dimension[X], 0, 0})
-	border = append(border, point{f.dimension[X], f.dimension[Y], 0})
-	border = append(border, point{0, f.dimension[Y], 0})
-	border = append(border, point{0, f.dimension[Y], f.dimension[Z]})
-	border = append(border, point{0, 0, f.dimension[Z]})
-	border = append(border, point{f.dimension[X], 0, f.dimension[Z]})
-	border = append(border, point{f.dimension[X], f.dimension[Y], f.dimension[Z]})
+	vertex := make([]point, 0, 8)
+	vertex = append(vertex, point{0, 0, 0})
+	vertex = append(vertex, point{f.dimension[X], 0, 0})
+	vertex = append(vertex, point{f.dimension[X], f.dimension[Y], 0})
+	vertex = append(vertex, point{0, f.dimension[Y], 0})
+	vertex = append(vertex, point{0, f.dimension[Y], f.dimension[Z]})
+	vertex = append(vertex, point{0, 0, f.dimension[Z]})
+	vertex = append(vertex, point{f.dimension[X], 0, f.dimension[Z]})
+	vertex = append(vertex, point{f.dimension[X], f.dimension[Y], f.dimension[Z]})
 	obstacles := make([]obstacle, 0)
-	for i, o := range f.obstacles {
-		obstacles = append(obstacles, o.toStruct(i))
+	for _, o := range f.obstacles {
+		obstacles = append(obstacles, o.toStruct())
 	}
-	space := field{f.description, border, f.start.toStruct(), f.finish.toStruct(), obstacles}
+	space := cspace{f.description, vertex, f.start.toStruct(), f.finish.toStruct(), obstacles}
 	result, err := json.Marshal(space)
 	if err != nil {
 		return "", err
@@ -59,7 +58,7 @@ func (p *Point3D) toStruct() point {
 }
 
 // toStruct converts Obstacle to serializable struct.
-func (o *Obstacle) toStruct(id int) obstacle {
+func (o *Obstacle) toStruct() obstacle {
 	edge := make([]point, 0)
 	for _, p := range o.points() {
 		edge = append(edge, p.toStruct())
@@ -132,5 +131,5 @@ func (o *Obstacle) toStruct(id int) obstacle {
 		facet = append(facet, triangle{4, 6, 7})
 	}
 
-	return obstacle{id, edge, facet}
+	return obstacle{edge, facet}
 }

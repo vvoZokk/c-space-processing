@@ -12,6 +12,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
+                    <outputDirectory>binary</outputDirectory>
+                    <finalName>ObstacleVisualizer</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
@@ -41,7 +44,6 @@
                     <encoding>UTF8</encoding>
                 </configuration>
             </plugin>
-
         </plugins>
     </build>
 
