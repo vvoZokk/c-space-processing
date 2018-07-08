@@ -12,6 +12,7 @@ import (
 func main() {
 	// set flags
 	outputFlag := flag.String("o", "", "set file name to write JSON")
+	stlFlag := flag.String("t", "", "set file name to write STL")
 	dimensionFlag := flag.Float64("d", gen.DefaultSize, "set c-space dimension")
 	seedFlag := flag.Int64("s", 0, "set seed for random generator, zero to use system time")
 	fullnessFlag := flag.Int("f", gen.MaxFullness/2, "set c-space fullness from 0 to "+fmt.Sprint(gen.MaxFullness))
@@ -57,7 +58,7 @@ func main() {
 		if *outputFlag != "" {
 			fmt.Println("> generation done, write output JSON to file", *outputFlag)
 		}
-		if json, err := cSpace.Serialize(); err != nil {
+		if json, err := cSpace.SerializeToJSON(); err != nil {
 			fmt.Println(">", err)
 			os.Exit(1)
 		} else {
@@ -71,5 +72,26 @@ func main() {
 				fmt.Println("> writing done")
 			}
 		}
+		// STL writing
+		if *stlFlag != "" {
+			if file, err := os.Create(*stlFlag); err != nil {
+				fmt.Println(">", err)
+				os.Exit(1)
+			} else {
+				if stl, err := cSpace.SerializeToSTL(); err != nil {
+					fmt.Println(">", err)
+					os.Exit(1)
+				} else {
+					writer := bufio.NewWriter(file)
+					writer.WriteString(stl)
+					if err := writer.Flush(); err != nil {
+						fmt.Println(">", err)
+						os.Exit(1)
+					}
+					file.Close()
+				}
+			}
+		}
+
 	}
 }
