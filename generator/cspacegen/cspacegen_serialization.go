@@ -49,9 +49,15 @@ func serializationPointsToFacet(a, b, c point) string {
 	normal.Y = ab.Z*bc.X - ab.X*bc.Z
 	normal.Z = ab.X*bc.Y - ab.Y*bc.X
 	length := math.Sqrt(normal.X*normal.X + normal.Y*normal.Y + normal.Z*normal.Z)
-	normal.X /= length
-	normal.Y /= length
-	normal.Z /= length
+	if length == 0 {
+		normal.X = 0
+		normal.Y = 0
+		normal.Z = 0
+	} else {
+		normal.X /= length
+		normal.Y /= length
+		normal.Z /= length
+	}
 	result := fmt.Sprintf(" facet normal %e %e %e\n  outer loop\n", normal.X, normal.Y, normal.Z)
 	result += fmt.Sprintf("   vertex %e %e %e\n", a.X, a.Y, a.Z)
 	result += fmt.Sprintf("   vertex %e %e %e\n", b.X, b.Y, b.Z)
@@ -96,6 +102,7 @@ func (c *CSpace) SerializeToSTL() (string, error) {
 	vertex = append(vertex, point{c.dimension[X], c.dimension[Y], c.dimension[Z]})
 
 	result := "solid " + c.description + "\n"
+	// borders
 	result += serializationPointsToFacet(vertex[0], vertex[1], vertex[2])
 	result += serializationPointsToFacet(vertex[2], vertex[3], vertex[0])
 	result += serializationPointsToFacet(vertex[3], vertex[4], vertex[5])
@@ -108,6 +115,10 @@ func (c *CSpace) SerializeToSTL() (string, error) {
 	result += serializationPointsToFacet(vertex[4], vertex[3], vertex[2])
 	result += serializationPointsToFacet(vertex[4], vertex[7], vertex[6])
 	result += serializationPointsToFacet(vertex[6], vertex[5], vertex[4])
+	// begin and end points
+	result += serializationPointsToFacet(c.start.toStruct(), c.start.toStruct(), c.start.toStruct())
+	result += serializationPointsToFacet(c.finish.toStruct(), c.finish.toStruct(), c.finish.toStruct())
+	// obstacles
 	for _, obstacle := range c.obstacles {
 		o := obstacle.toStruct()
 		for _, f := range o.Facet {

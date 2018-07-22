@@ -83,6 +83,20 @@ solid c-space 10.00 x 10.00 x 10.00, fullness value 4, seed 99
    vertex 0.000000e+00 1.000000e+01 1.000000e+01
   endloop
  endfacet
+ facet normal 0.000000e+00 0.000000e+00 0.000000e+00
+  outer loop
+   vertex 2.543269e-01 2.687313e-01 2.514422e-01
+   vertex 2.543269e-01 2.687313e-01 2.514422e-01
+   vertex 2.543269e-01 2.687313e-01 2.514422e-01
+  endloop
+ endfacet
+ facet normal 0.000000e+00 0.000000e+00 0.000000e+00
+  outer loop
+   vertex 9.819808e+00 9.617490e+00 9.872734e+00
+   vertex 9.819808e+00 9.617490e+00 9.872734e+00
+   vertex 9.819808e+00 9.617490e+00 9.872734e+00
+  endloop
+ endfacet
  facet normal -6.907724e-02 1.764347e-01 -9.818855e-01
   outer loop
    vertex 2.719599e+00 1.188857e+00 1.339776e-01
